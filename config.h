@@ -90,9 +90,9 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "kitty", NULL };
 
 static const Key keys[] = {
-	/* modifier                     	key        	function        	argument */
-	{ MODKEY,                       	XK_r,      	spawn,          	{.v = dmenucmd } },
-	{ MODKEY,		             		XK_x,	 	spawn,          	{.v = termcmd } },
+/* modifier                     	key        	function        	argument */
+	{ MODKEY,                       	XK_space, 	spawn,          	{.v = dmenucmd } },
+	{ MODKEY,		             		XK_Return,	spawn,          	{.v = termcmd } },
 	{ MODKEY,                       	XK_b,      	spawn,      		SHCMD ("xdg-open https:")},
 	{ MODKEY,                       	XK_e,      	spawn,      		SHCMD ("thunar")},
 	{ MODKEY|ShiftMask|ControlMask, 	XK_p,      	spawn,      		SHCMD ("flameshot full -p full /home/stipe/Pictures/")},
@@ -103,42 +103,51 @@ static const Key keys[] = {
 	{ 0,								0x1008ff12,	spawn,				SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
 	{ 0,								0x1008ff11,	spawn,				SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
 	{ 0,								0x1008ff13,	spawn,				SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
-	{ MODKEY,	                 	XK_f,      	togglebar,      	{0} },
+	{ MODKEY,	                 	XK_g,      	togglebar,      	{0} },
 	{ MODKEY,                       	XK_j,      	focusstack,     	{.i = +1 } },
 	{ MODKEY,                       	XK_k,      	focusstack,     	{.i = -1 } },
-	{ MODKEY,                       	XK_i,      	incnmaster,     	{.i = +1 } },
+	{ MODKEY,                       	XK_s,      	incnmaster,     	{.i = +1 } },
 	{ MODKEY,                       	XK_d,      	incnmaster,     	{.i = -1 } },
 	{ MODKEY,                       	XK_h,      	setmfact,       	{.f = -0.05} },
 	{ MODKEY,                       	XK_l,      	setmfact,       	{.f = +0.05} },
 	{ MODKEY|ShiftMask,			XK_h,		setcfact,			{.f = +0.25} },
 	{ MODKEY|ShiftMask,			XK_l,		setcfact,			{.f = -0.25} },
 	{ MODKEY|ShiftMask,			XK_o,		setcfact,			{.f =  0.00} },
-	{ MODKEY,                       	XK_Return, 	zoom,           	{0} },
+	{ MODKEY,                       	XK_f, 		zoom,           	{0} },
 	{ MODKEY,                       	XK_Tab,    	view,           	{0} },
 	{ MODKEY,                       	XK_q,		killclient,         {0} },
-	{ MODKEY,                       	XK_t,      	setlayout,      	{.v = &layouts[0]} },
-	{ MODKEY,                       	XK_f,      	setlayout,      	{.v = &layouts[1]} },
-	{ MODKEY,                       	XK_m,      	fullscreen,      	{.v = &layouts[2]} },
-	{ MODKEY,                       	XK_space,  	setlayout,      	{0} },
-	{ MODKEY|ShiftMask,             	XK_space,  	togglefloating, 	{0} },
+	{ MODKEY,                       	XK_w,      	setlayout,      	{.v = &layouts[0]} },
+	{ MODKEY,                       	XK_e,      	setlayout,      	{.v = &layouts[1]} },
+	{ MODKEY,                       	XK_r,      	setlayout,      	{.v = &layouts[2]} },
+	{ MODKEY,                       	XK_t,  	  	setlayout,      	{0} },
+	{ MODKEY|ShiftMask,             	XK_r,  	  	togglefloating, 	{0} },
 	{ MODKEY,                       	XK_0,      	view,           	{.ui = ~0 } },
 	{ MODKEY|ShiftMask,             	XK_0,      	tag,            	{.ui = ~0 } },
 	{ MODKEY,                       	XK_comma,  	focusmon,       	{.i = -1 } },
 	{ MODKEY,                       	XK_period, 	focusmon,       	{.i = +1 } },
 	{ MODKEY|ShiftMask,             	XK_comma,  	tagmon,         	{.i = -1 } },
 	{ MODKEY|ShiftMask,             	XK_period, 	tagmon,         	{.i = +1 } },
+	{ MODKEY,			XK_minus,  setgaps,	   {.i = -1 } },
+	{ MODKEY,			XK_equal,  setgaps,	   {.i = +1 } },
+	{ MODKEY|ShiftMask,		XK_equal,  setgaps,	   {.i =  0 } },
+	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
+	{ 0,			XK_Print, spawn, {.v = flameshotcmd } },
 	TAGKEYS(                        	XK_1,                      		0)
 	TAGKEYS(                        	XK_2,                      		1)
 	TAGKEYS(                        	XK_3,                      		2)
 	TAGKEYS(                        	XK_4,                     		3)
 	TAGKEYS(                        	XK_5,                     		4)
 	TAGKEYS(                        	XK_6,                     		5)
-	{ MODKEY|ShiftMask|ControlMask,		XK_q,      	quit,           	{0} },
+	TAGKEYS(                        	XK_7,                     		6)
+	TAGKEYS(                        	XK_8,                     		7)
+	TAGKEYS(                        	XK_9,                     		8)
+	{ MODKEY|ShiftMask,		XK_q,      quit,           {0} },
 	{ MODKEY|ControlMask|ShiftMask, 	XK_r,		spawn,              SHCMD("systemctl reboot")},
 	{ MODKEY|ControlMask|ShiftMask, 	XK_p,       spawn,              SHCMD("systemctl poweroff")},
 	{ MODKEY|ControlMask|ShiftMask, 	XK_s,	    spawn,       	    SHCMD("systemctl suspend")},
 	{ MODKEY,							XK_p,	    spawn,	          	SHCMD("pavucontrol")},
 	{ MODKEY,							XK_c,	    spawn,	          	SHCMD("/opt/AppImages/./gearlever_cursor_970709.appimage")},
+
 };
 
 /* button definitions */
